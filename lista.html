@@ -1,0 +1,44 @@
+{% extends "template.html" %}
+{% block conteudo %}
+
+<div class="d-flex justify-content-between align-items-center my-3">
+   <h1></h1>
+   <div>
+      <a href="{{ url_for('novo') }}" class="btn btn-success">Novo Funcionário</a>
+   </div>
+</div>
+
+<table class="table table-striped table-responsive table-bordered">
+   <thead class="thead-default">
+      <tr>
+         <th>Nome</th>
+         <th>Data Nascimento</th>
+         <th>Endereço</th>
+         <th>Telefone</th>
+         <th>
+            <center>Ações</center>
+         </th>
+      </tr>
+   </thead>
+   <tbody>
+      {% for funcionario in funcionarios %}
+      <tr>
+         <td>{{ funcionario.nome }}</td>
+         <td>{{ funcionario.data_nascimento|data_br }}</td>
+         <td>{{ funcionario.endereco }}</td>
+         <td>{{ funcionario.telefone }}</td>
+         <td>
+            <center>
+               <a href="{{ url_for('editar', id=funcionario.id) }}" class="btn btn-primary btn-sm">Editar</a>
+               <a href="#"
+                  onclick="confirmarDelecao('{{ funcionario.nome }}', '{{ url_for('deletar', id=funcionario.id) }}')"
+                  class="btn btn-danger btn-sm">Deletar</a>
+            </center>
+         </td>
+
+      </tr>
+      {% endfor %}
+   </tbody>
+</table>
+
+{% endblock %}
